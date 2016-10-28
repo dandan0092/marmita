@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+
+	<script src="http://www.w3schools.com/lib/w3data.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+ 	<script src="../js/jquery.m.toast.js"></script>
+ 	<link rel="stylesheet" href="../css/jquery.m.toast.css" />
+
+ 	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <!-- Lari IMPLEMENTATION -->
+	 <link rel="stylesheet" href="../css/01 css.css">
+     <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  
+
+<title>Casa das Marmitas | ADS UNOPAR</title>
+
+<script >
+$(function() {
+  	var availableTags = [];
+  	var fComando = "getListaNome",
+  	url = "../controller/entregador_controller.php";
+
+	
+	$.post(url,{comando: fComando},function(data){
+		availableTags = data.split("][");
+		    $( "#nome" ).autocomplete({
+      			source: availableTags
+    		});
+	});
+} );	
+
+window.onload = function getListaEmpresa() {
+	var fComando = "getListaEmpresa", 
+		url = "../controller/entregador_controller.php";
+	$.post(url,{comando: fComando},function(data){
+	 	document.getElementById("empresa").innerHTML=data;
+	 });
+};
+
+</script>
+</head>
+
+<body>
+	<form id="form_add" action="../controller/entregador_controller.php" method="post">
+		<p>
+			<div class="ui-widget">
+				<input type="text" name="nome" id="nome" size="60" placeholder="Buscar por nome do entregador" autocomplete="off" required autofocus >
+			</div>
+		</p>
+		<p>
+			<input type="text" name="cpf" id="cpf" size="26" placeholder="CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" autocomplete="off" required >
+			<input type="text" name="rg" id="rg" size="28" placeholder="RG" autocomplete="off" required >
+		</p>				
+		<p><input type="tel" name="tel" id="tel" size="26" placeholder="Telefone" autocomplete="off" required ></p>
+		<p>
+			<select id='empresa' class="form-control selcls">
+
+			</select>			
+		</p>
+
+		<input type="hidden" id="id" value="0">
+		
+		<input type="hidden" id="id_tercerizada" value="0">
+
+		<input type="hidden" name="comando" value="update">
+
+		<input type="submit" name="salvar" value="Salvar" class="btn btn-primary">
+		<input type="button" name="apagar" id="apagar" value="Apagar" class="btn btn-primary">		
+	</form>
+<script>
+
+	$( '#apagar' ).click(function() {
+
+		var resposta = confirm("Deseja realmente apagar esse registro?");
+		if (resposta) {
+		    var fComando = "delete",
+			fId = $('#id').val(),
+			url = "../controller/entregador_controller.php";
+
+
+	 		$.post(url,{comando: fComando, id: fId},function(data){
+	 			if (data) {
+	 			//	alert(data);
+	 				$.toast('Registro apagado!');
+
+	    			$('#id').val("");
+	    			$('#nome').val("");
+					$('#cpf').val("");
+					$('#rg').val("");
+					$('#tel').val("");
+					$('#empresa').val("Empresa");
+					
+	 				//Simular teclar ENTERs
+					var e = jQuery.Event("keyup");
+					e.keyCode = $.ui.keyCode.ENTER;
+					$("#nome").trigger(e);
+	 			}
+			});
+		}
+
+	});
+
+	$('#nome').keyup(function(event){
+
+		$(function() {
+		  	var availableTags = [];
+		  	var fComando = "getListaNome",
+		  	url = "../controller/entregador_controller.php";
+
+			
+			$.post(url,{comando: fComando},function(data){
+				availableTags = data.split("][");
+				    $( "#nome" ).autocomplete({
+		      			source: availableTags
+		    		});
+			});
+		} );		
+
+
+	    if (event.keyCode === 10 || event.keyCode === 13) {
+	    	event.preventDefault();
+	    	
+				var fComando = "search",
+				fCampo = "nome",
+				fNome = $("#nome").val(),
+				url = "../controller/entregador_controller.php";			
+
+	    	if($("#nome").val() != "") {
+	    		$.post(url,{comando: fComando, campo: fCampo, nome: fNome},function(data){
+	    			var valores = data.split("][");
+	    			$("#form_add")[0].reset();
+
+	    			$('#id').val(valores[0]);
+	    			$('#nome').val(valores[1]);					//$( '#empresa' ).val(  );
+					$('#tel').val(valores[2]);
+					$('#cpf').val(valores[3]);
+					$('#rg').val(valores[4]);
+					$('#id_tercerizada').val(valores[5]);
+					$("#empresa option:selected").html(valores[6]);	
+				});
+	    	}
+	    }	        
+	});
+
+	// $("#nome").focusout(function() {
+	// 		var e = jQuery.Event("keyup");
+	// 		e.keyCode = $.ui.keyCode.ENTER;
+	// 		$("#nome").trigger(e);
+ //  	});
+
+$( "#form_add" ).submit(function( event ) {
+  event.preventDefault();
+
+  var $form = $( this ),
+    fId = $("#id").val(),
+    fNome = $form.find( "input[name='nome']" ).val(),
+    fTelefone = $form.find( "input[name='tel']" ).val(),
+    fCpf = $form.find( "input[name='cpf']" ).val(),
+    fRg = $form.find( "input[name='rg']" ).val(),
+    fEmpresa = $("#id_tercerizada").val(),
+    fComando = $form.find( "input[name='comando']" ).val(),
+    url = $form.attr( "action" );
+
+	$.post(url,{id: fId, nome: fNome, tel: fTelefone, cpf: fCpf, rg: fRg, empresa: fEmpresa, comando: fComando},function(data){
+ 		//alert(fEmpresa);
+		$.toast('Informações atualizadas!');
+		$("#nome").focus();
+
+ });
+});
+</script>
+
+</body>
+</html>

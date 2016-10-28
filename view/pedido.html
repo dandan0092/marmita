@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+
+	<script src="http://www.w3schools.com/lib/w3data.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+ 	<script src="../js/jquery.m.toast.js"></script>
+ 	<link rel="stylesheet" href="../css/jquery.m.toast.css" />
+
+ 	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+        <!-- Lari IMPLEMENTATION -->
+	 <link rel="stylesheet" href="../css/01 css.css">
+     <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  
+
+<title>Casa das Marmitas | ADS UNOPAR</title>
+
+<style>
+	#pedidos {
+	    width: 100%;
+	    height: 100%;
+	    overflow: auto;
+		overflow-y: hidden;
+	}
+</style>
+<script>
+
+$(function() {
+	$( "#div_entregador" ).dialog({
+   		autoOpen: false, 
+   		zIndex: 10000,
+	});
+});
+
+$(function() {
+	$( "#div_relatorio" ).dialog({
+   		autoOpen: false, 
+   		zIndex: 10000,
+	});
+});
+
+window.onload = function getListaPedido() {
+	var fComando = "getListaPedido", 
+		url = "../controller/pedido_controller.php";
+	$.post(url,{comando: fComando},function(data){
+		$('#pedidos').html(data);
+ 	 });
+
+
+	fComando = "getListaEntregador", 
+		url = "../controller/pedido_controller.php";
+	$.post(url,{comando: fComando},function(data){
+	 	document.getElementById("entregador").innerHTML=data;
+	 });
+};
+</script>
+
+</head>
+
+<body>
+
+
+	<!-- Definir entregador -->
+	<div id="div_entregador" title="Quem entregou?">
+		Nome do entregador: 
+		<br>
+		<select id='entregador'>
+
+		</select>
+		<br>
+		<button id="add_entregador" onclick="entregador_add()"  style="float: right;" ><img src="../img/icon_ok.png" height="24px" width="24px" /></button>
+
+	</div>
+
+	<!-- Relatório -->
+	<div id="div_relatorio" title="Relatório">
+		<form action="../controller/pedido_controller.php" method="post">
+			Digite a baixo o número de dias: 
+			<br>
+				<input type="number" name="dias" id="dias" min="0">
+			<br>
+
+			<input type="hidden" name="comando" value="relatorio">
+
+			<input type="submit" name="submit" value="OK" style="float: right;">
+		</form>
+	</div>
+
+	<div style="float: right;">
+			<img src="../img/rela.png" width="40px" height="40px"/>
+			<button type="button" id="relatorio" class="btn btn-primary">Relatório</button>
+	</div>
+
+		<div id="pedidos">
+			<!-- innerHTML -->
+		</div>
+
+		<input type="hidden" name="comando" value="inserir">
+		<input type="hidden" id="id_pedido">
+		<input type="hidden" id="num_pedido">
+
+
+<script>
+
+$( '#relatorio' ).click(function() {
+	$( "#div_relatorio" ).dialog( "open" );
+});
+
+
+$( '#novo_relatorio' ).click(function() {
+	var url = "../controller/pedido_controller.php";
+		fDias = $('#dias').val(),
+		fComando = "relatorio";
+
+	$.post(url,{dias: fDias, comando: fComando},function(data){
+ 		//alert(data);
+ 		//jQuery("body").html(data);
+ 	});
+	});
+
+
+function entregador(id) {
+	$("#id_pedido").val(id);
+	$( "#div_entregador" ).dialog( "open" );
+}
+
+function entregue(id) {
+	$("#id_pedido").val(id);
+
+	$('<div></div>').appendTo('body')
+	  .html('<div><h6>O pedido foi entregue?</h6></div>')
+	  .dialog({
+	      modal: true, title: 'Entrege!', zIndex: 10000, autoOpen: true,
+	      width: 'auto', resizable: false,
+	      buttons: {
+	          Sim: function () {
+					var url = "../controller/pedido_controller.php",
+						fComando = "setEntregue",
+						fIdPedido = $("#id_pedido").val();
+
+					$.post(url,{id: fIdPedido, comando: fComando},function(data){
+				 	//alert(data);
+				 		var idPedido = $("#id_pedido").val();
+				 		if (data) { 
+				 			$.toast('Pedido finalizado...');
+								var div = $('#' + idPedido);
+								setTimeout(function(){ div.remove(); }, 600);
+				 		}
+				 	});
+	              $(this).dialog("close");
+	          },
+	          Não: function () {
+	              //doFunctionForNo();
+	              $(this).dialog("close");
+	          }
+	      },
+	      close: function (event, ui) {
+	          $(this).remove();
+	      }
+	});
+}
+
+function entregador_add() {
+
+	var url = "../controller/pedido_controller.php",
+		fComando = "setEntregador",
+		fIdPedido = $("#id_pedido").val(),
+		fCpfEntregador = $("#entregador option:selected").val();
+
+	$.post(url,{id: fIdPedido, cpf: fCpfEntregador, comando: fComando},function(data){
+ 	//alert(data);
+ 		var idPedido = $("#id_pedido").val();
+ 		if (data) { 
+ 			$.toast('Pedido encaminhado...');
+				//var div = $('#' + idPedido);
+				location.reload();
+				/*$('#div_entregador').dialog('close');
+		        setTimeout(function(){ div.remove(); }, 600);*/
+ 		}
+ 	});	
+}
+
+function deletePedido(id) {
+	$("#id_pedido").val(id);
+	$('<div></div>').appendTo('body')
+    .html('<div><h6>Deseja cancelar esse pedido?</h6></div>')
+    .dialog({
+    title: 'Cancelar',
+    zIndex: 10000,
+    autoOpen: true,
+    width: 'auto',
+    resizable: false,
+    buttons: {
+        Sim: function () {
+            doFunctionForYes();
+            $(this).dialog("close");
+        },
+        Não: function () {
+        	//
+        	 $(this).dialog("close");
+        }
+    },
+    close: function (event, ui) {
+        $(this).remove();
+    }
+});
+
+function doFunctionForYes() {
+	var url = "../controller/pedido_controller.php",
+		fComando = "cancelPedido",
+		fIdPedido = $("#id_pedido").val();
+
+	$.post(url,{id: fIdPedido, comando: fComando},function(data){
+ 	//alert(data);
+ 		var idPedido = $("#id_pedido").val();
+ 		if (data) { 
+ 			$.toast('Pedido cancelado...');
+				var div = $('#' + idPedido);
+				$('#div_entregador').dialog('close');
+		        setTimeout(function(){ div.remove(); }, 600);
+ 		}
+ 	});		    
+}
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+
+	<script src="http://www.w3schools.com/lib/w3data.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+ 	<script src="../js/jquery.m.toast.js"></script>
+ 	<link rel="stylesheet" href="../css/jquery.m.toast.css" />
+
+     <!-- Lari IMPLEMENTATION -->
+	 <link rel="stylesheet" href="../css/01 css.css">
+     <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">    	
+<title>Casa das Marmitas | ADS UNOPAR</title>
+
+
+</head>
+
+<body>
+<form id="form_add" action="../controller/cliente_controller.php" method="post">
+	<p><input type="text" name="nome" size="60" placeholder="Nome" required autocomplete="off" autofocus ></p>
+
+	<p><input type="tel" name="tel" size="60" placeholder="Telefone" autocomplete="off" required ></p>
+
+	<p><input type="text" name="endereco" size="60" placeholder="Endereço" autocomplete="off"required ></p>
+
+	<p><input type="text" name="referencia" size="60" placeholder="Ponto de referência" autocomplete="off" required></p>
+
+	<p>Data de nascimento: <input type="date" name="data" size="8" autocomplete="off"><img src="../img/cale.png" width="30px" height="30px"/></p>
+
+	<input type="hidden" name="comando" value="inserir">
+
+	<p><input type="submit" name="salvar" value="&#10004 Salvar" class="btn btn-primary"></p>
+
+</form>	
+<script>
+
+
+$( "#form_add" ).submit(function( event ) {
+	event.preventDefault();
+  var $form = $( this ),
+    fNome = $form.find( "input[name='nome']" ).val(),
+    fTelefone = $form.find( "input[name='tel']" ).val(),
+    fEndereco = $form.find( "input[name='endereco']" ).val(),
+    fReferencia = $form.find( "input[name='referencia']" ).val(),
+    fData = $form.find( "input[name='data']" ).val(),
+    fComando = $form.find( "input[name='comando']" ).val(),
+    url = $form.attr( "action" );
+
+	$.post(url,{nome: fNome, tel: fTelefone, endereco: fEndereco, referencia: fReferencia, data: fData ,comando: fComando},function(data){
+ 	//alert(data);
+ 		$form[0].reset();
+		$.toast('Cliente adicionado!');
+		$("#nome").focus();
+ });
+});
+</script>
+
+</body>
+</html>

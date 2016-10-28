@@ -1,0 +1,81 @@
+body{
+margin-top:0px;
+
+}
+
+div#topo{
+	width:960px;
+	height:230px;
+	margin:0px auto;
+}
+
+
+div#logo{
+	width:200px;
+	height:100px;
+	margin:30px 13px;
+	float:left;
+}
+
+div#login{
+	width:300px;
+	height:111px;
+	margin:0px 0px;
+	float:right;
+
+}
+
+div#menu{
+    width:960px;
+	height:60px;
+	margin:20px auto;
+	background:#BDBDBD;
+	border-radius:7px;
+}
+
+div#menu a{
+   color:black;
+   font-family:arial;
+   font-size:25px;
+   text-decoration:none;
+   padding:10px;
+   margin-top:6px;
+   margin-right:8px;
+   margin-left:7px;
+   display:block;
+   float:left;
+   
+}
+
+div#menu a:hover{
+    color:#FFF;
+}
+
+div#menu2{
+    width:960px;
+	height:60px;
+	margin:50px 300px;
+	
+}
+
+div#menu2 a{
+   margin-right:50px;
+   margin-left:38px;
+   display:block;
+   float:left;
+   
+}
+
+div#fds{
+
+}
+
+
+
+
+
+
+
+
+
+

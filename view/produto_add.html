@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+
+	<script src="http://www.w3schools.com/lib/w3data.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+ 	<script src="../js/jquery.m.toast.js"></script>
+ 	<link rel="stylesheet" href="../css/jquery.m.toast.css" />
+
+ 	     <!-- Lari IMPLEMENTATION -->
+ 	 <link rel="stylesheet" href="../css/01 css.css">
+     <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  
+<title>Casa das Marmitas | ADS UNOPAR</title>
+
+</head>
+</script>
+<body>
+	<form id="form_add" action="../controller/produto_controller.php" method="post">
+		<p><input type="text" name="nome" size="60" placeholder="Nome do produto" autocomplete="off" required></p>
+
+		<p><input type="text" name="descricao" size="60" placeholder="Descrição" autocomplete="off" required ></p>
+		
+		<table>
+			<tr>
+				<td>
+					<p>
+						<select id="tamanho" class="form-control selcls">
+							<option>Pequeno</option>
+							<option>Médio</option>
+							<option>Grande</option>
+						</select>
+					</p>	
+				</td>
+				<td width="95px"></td>
+				<td>
+					<p>
+						<input type="number" min="0" step="0.1" name="preco" placeholder="Preço" autocomplete="off" required >
+					</p>
+				</td>
+			</tr>
+		</table>
+		
+		<p><input type="checkbox" name="disponivel" value="1">Disponível</input></p>
+		
+		<input type="hidden" name="comando" value="inserir">
+
+		<p><input type="submit" name="salvar" value="&#10004 Salvar" class="btn btn-primary"></p>
+
+		<br><h6>Marcando o produto como disponível ele aparecerá na tela de pedidos</h6>
+	</form>
+<script>
+
+
+$( "#form_add" ).submit(function( event ) {
+  event.preventDefault();
+  var e = document.getElementById('tamanho');
+      
+
+
+  var $form = $( this ),
+    fNome = $form.find( "input[name='nome']" ).val(),
+    fDescricao = $form.find( "input[name='descricao']" ).val(),
+    fPreco = $form.find( "input[name='preco']" ).val(),
+    fTamanho = e.options[e.selectedIndex].value,
+    fDisponivel = "0",
+    fComando = $form.find( "input[name='comando']" ).val(),
+    url = $form.attr( "action" );
+    
+    var disponivel = $form.find('input[name="disponivel"]:checked').val();
+    if (disponivel) {
+    	fDisponivel = "1";
+    } 
+
+	$.post(url,{nome: fNome, descricao: fDescricao, preco: fPreco, tamanho: fTamanho, disponivel: fDisponivel, comando: fComando},function(data){
+ 		//alert(data);
+		$form[0].reset();
+		$.toast('Produto adicionado!');
+		$("#nome").focus();
+ });
+});
+</script>
+
+</body>
+</html>

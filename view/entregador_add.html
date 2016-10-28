@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+
+	<script src="http://www.w3schools.com/lib/w3data.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+ 	<script src="../js/jquery.m.toast.js"></script>
+ 	<link rel="stylesheet" href="../css/jquery.m.toast.css" />
+
+ 	 	     <!-- Lari IMPLEMENTATION -->
+	 <link rel="stylesheet" href="../css/01 css.css">
+     <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">  
+<title>Casa das Marmitas | ADS UNOPAR</title>
+
+</head>
+
+<body>
+
+<script>
+window.onload = function getListaEmpresa() {
+	var fComando = "getListaEmpresa", 
+		url = "../controller/entregador_controller.php";
+	$.post(url,{comando: fComando},function(data){
+	 	document.getElementById("empresa").innerHTML=data;
+	 });
+};
+</script>
+	
+	<form id="form_add" action="../controller/entregador_controller.php" method="post">
+		<p>
+			<input type="text" name="nome" size="60" placeholder="Nome do entregador" autocomplete="off" required autofocus>
+		</p>	
+
+		<p>
+			<input type="text" name="cpf" size="26" placeholder="CPF" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" autocomplete="off" required>
+			<input type="text" name="rg" size="26" placeholder="RG" autocomplete="off" required>
+		</p>
+
+		<p><input type="tel" name="tel" size="26" placeholder="Telefone" autocomplete="off" required ></p>
+
+		<p>
+			<select id="empresa" class="form-control selcls">
+				<!-- InnerHTML -->
+			</select>
+		</p>
+
+		<input type="hidden" name="comando" value="inserir">
+
+		<p><input type="submit" name="salvar" value="&#10004 Salvar" class="btn btn-primary"></p>
+	</form>
+<script>
+
+
+$( "#form_add" ).submit(function( event ) {
+  event.preventDefault();
+
+  var $form = $( this ),
+    fNome = $form.find( "input[name='nome']" ).val(),
+    fTelefone = $form.find( "input[name='tel']" ).val(),
+    fCpf = $form.find( "input[name='cpf']" ).val(),
+    fRg = $form.find( "input[name='rg']" ).val(),
+    fEmpresa = $("#empresa option:selected").val(),
+    fComando = $form.find( "input[name='comando']" ).val(),
+    url = $form.attr( "action" );
+
+	$.post(url,{nome: fNome, tel: fTelefone, cpf: fCpf, rg: fRg, empresa: fEmpresa, comando: fComando},function(data){
+ 		//alert(fEmpresa);
+ 		$form[0].reset();
+		$.toast('Entregador adicionado!');
+		$("#nome").focus();
+ });
+});
+
+</script>
+
+</body>
+</html>

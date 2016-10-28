@@ -1,0 +1,299 @@
+<!DOCTYPE htlm>
+<html>
+  <head>
+     <title>Casa das Marmitas</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+
+	 <link rel="stylesheet" href="css/01 css.css">
+     <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+  </head>
+
+  <style>
+  	iframe {
+    	width:100%;
+  		height:235px !important;
+    	border-style: none;
+	}
+  </style>
+  
+  <body>
+     
+     <div id="topo">
+	     <div id="logo"> <img src="img/figura1.png" width="110%"/> </div>
+	     <div id="login"><img src="img/div2.png" width="300px"/></div>
+	 </div>  
+     
+	 <div id="menu">
+	     <b>
+	     <a data-toggle="modal" data-target="#modalpedidos" href="#">PEDIDOS</a>
+	     <a data-toggle="modal" data-target="#modalclientes" href="#">CLIENTES</a>
+	     <a data-toggle="modal" data-target="#modalprodutos" href="#">PRODUTOS</a>
+	     <a data-toggle="modal" data-target="#modalentregadores" href="#">ENTREGADORES</a>
+	     <a data-toggle="modal" data-target="#modaltercerizadas" href="#">TERCERIZADAS</a>
+	     </b>
+		 
+	 </div> 
+	 
+	 <div id="menu2">
+	     <a  data-toggle="modal" data-target="#modal1" href="#"><img src="img/pd.png" width="66px" height="60px"/> </a>
+	     <a  data-toggle="modal" data-target="#modal2" href="#"><img src="img/cliente.png" width="66px" height="60px"/> </a>
+	     <a  data-toggle="modal" data-target="#modal3" href="#"><img src="img/pedi.png" width="60px" height="60px"/> </a>
+	     <a  data-toggle="modal" data-target="#modal4" href="#"><img src="img/entre.png" width="66px" height="60px"/> </a>
+	     <a  data-toggle="modal" data-target="#modal5" href="#"><img src="img/terce.png" width="66px" height="60px"/> </a> 
+
+     </div>
+	 
+	 <!-- Modal -->
+	 <div class="modal fade" id="modalpedidos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/pd.png" width="66px" height="60px" /><b>  PEDIDOS</b></h4>
+					</div>
+				<div class="modal-body">
+			
+				<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_add_pedido" src="view/pedido_add.html"></iframe>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->
+	
+	
+	
+	 <!-- Modal 2 -->
+	 <div class="modal fade" id="modalclientes" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/cliente.png" width="60px" height="60px" /> CLIENTES</h4>
+					</div>
+				<div class="modal-body">			
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_add_cliente" src="view/cliente_add.html"></iframe>
+	
+					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal" 
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->	
+
+	
+	<!-- Modal 3 -->
+	 <div class="modal fade" id="modalprodutos" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/pedi.png" width="60px" height="60px" /> PRODUTOS </h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_add_produto" src="view/produto_add.html"></iframe>
+					
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->	
+	
+	
+	
+	<!-- Modal 4 -->
+	 <div class="modal fade" id="modalentregadores" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/entre.png" width="66px" height="60px" />  ENTREGADORES</h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_add_entregador" src="view/entregador_add.html"></iframe>
+								
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->
+
+	
+	
+	<!-- Modal 5 -->
+	 <div class="modal fade" id="modaltercerizadas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/terce.png" width="66px" height="60px" />  TERCERIZADAS</h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_add_tercerizada" src="view/tercerizada_add.html"></iframe>
+										
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->
+
+
+
+	<!-- Modal 6 -->
+	 <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"> <img src="img/pd.png" width="66px" height="60px"/> PEDIDOS  </h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_pedido" src="view/pedido.html"></iframe>
+				
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->		
+	
+	
+	<!-- Modal 7 -->
+	 <div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/cliente.png" width="60px" height="60px" /> CLIENTES </h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_cliente" src="view/cliente.html"></iframe>
+									
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->	
+	
+	
+	
+	<!-- Modal 8 -->
+	 <div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/pedi.png" width="66px" height="60px" />  PRODUTOS </h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_produto" src="view/produto.html"></iframe>
+									
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->
+	
+	<!-- Modal 8 -->
+	 <div class="modal fade" id="modal4" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/entre.png" width="66px" height="60px" />  ENTREGADORES</h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_entregador" src="view/entregador.html"></iframe>
+									
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->
+	
+	<!-- Modal 9 -->
+	 <div class="modal fade" id="modal5" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"><img src="img/terce.png" width="66px" height="60px" />  TERCERIZADAS </h4>
+					</div>
+				<div class="modal-body">
+
+					<!-- IFRAME OUTRA PAGINA -->
+					<iframe id="i_tercerizada" src="view/tercerizada.html"></iframe>
+											
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal"
+					onclick="location.reload();">Fechar</button>
+					<!-- <button type="button" class="btn btn-primary">Salvar</button> -->
+				</div>
+			</div> <!-- fim do conteudo do modal -->
+		</div> <!-- fim do dialog -->
+	</div> <!-- fim da div myModal -->
+	
+	 
+
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+  </body>
+  
+  </html>

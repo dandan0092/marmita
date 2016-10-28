@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    <meta name="viewport" content="initial-scale=1, width=device-width, maximum-scale=1, user-scalable=no">
+
+	<script src="http://www.w3schools.com/lib/w3data.js"></script>
+	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+ 	<script src="../js/jquery.m.toast.js"></script>
+ 	<link rel="stylesheet" href="../css/jquery.m.toast.css" />
+
+ 	  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+     <!-- Lari IMPLEMENTATION -->
+	 <link rel="stylesheet" href="../css/01 css.css">
+     <!-- Latest compiled and minified CSS -->
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">   
+
+<title>Casa das Marmitas | ADS UNOPAR</title>
+
+<script>
+
+window.onload = function getListaProduto() {
+	var fComando = "getListaProduto", 
+		url = "../controller/pedido_controller.php";
+	$.post(url,{comando: fComando},function(data){
+		$('#produtos').html(data);
+ 	 });
+};
+</script>
+</head>
+
+<body>
+<form id="form_add" action="../controller/pedido_controller.php" method="post">
+	<p>
+		<div class="ui-widget">
+			<input type="text" id="tel" name="tel" placeholder="Buscar por telefone do cliente" size="60" required autocomplete="off" autofocus >
+		</div>	
+	</p>
+
+	<div id="produtos">
+		<!-- InnerHTML -->
+	</div>
+	<table align="rigth"> 
+      <tr><td><p><b>Entrega: </b><input type="number" min="0" max="999" step="0.1" value="4.50" id="frete" autocomplete="off" required ></td></p></tr>          
+      <tr><td><p><b>Recebido: </b><input type="number" min="0" max="9999" id="recebido" name="recebido" autocomplete="off" required></td></p></tr>     
+      <tr><td><p><b>Total: </b><label id="total">0.0</label></td></p></tr>
+      <tr><td><p><b>Troco: </b><label id="troco">0.0</label></td></p></tr>
+    </table>
+		<input type="hidden" id="id" value="0">
+
+		<input type="hidden" name="comando" value="inserir">
+
+		<br><input type="submit" name="salvar" value="Salvar" class="btn btn-primary">
+</form>
+
+<script>
+	function soma() {
+		
+		///Pegar valores dos checkboxs e input da div produto e soma
+		$(document).ready(function() {
+				var frete = parseFloat($('#frete').val());
+				var total = 0;
+
+		        $('#produtos input:checked').each(function() {
+		        	var quantProduto = $('#q' + this.name).val(),
+		        		valorProduto = $('#q' + this.name).attr('name');
+
+		            if (this.name != null) {
+		            		total = total + (parseFloat(quantProduto) * parseFloat(valorProduto));
+		            }
+		        });
+		        total = total + frete;
+				$('#total').text(total);
+		});
+	}
+
+	$('#frete').change(function() {
+		soma();
+	});
+
+	$('#frete').keyup(function() {
+		soma();
+	});
+
+	$('#recebido').keyup(function() {
+		if ($('#recebido').val() != "") {
+			var troco = parseFloat($('#recebido').val()) - parseFloat($('#total').text()) ;
+			$('#troco').text(troco);			
+		}
+	});
+
+	$( '#apagar' ).click(function() {
+		
+		var resposta = confirm("Deseja realmente apagar esse registro?");
+		if (resposta) {
+		    var fComando = "delete",
+			fId = $('#id').val(),
+			url = "../controller/cliente_controller.php";
+
+	 		$.post(url,{comando: fComando, id: fId},function(data){
+	 			if (data) {
+	 				$.toast('Registro apagado!');
+			
+	    			$('#id').val("");
+	    			$('#nome').val("");
+					$('#tel').val("");
+					$('#endereco').val("");
+					$('#referencia').val("");
+					$('#data').val("");
+
+	 				//Simular teclar ENTERs
+					var e = jQuery.Event("keyup");
+					e.keyCode = $.ui.keyCode.ENTER;
+					$("#tel").trigger(e);
+	 			}
+			});
+		}
+
+	});
+
+	$("#tel").keyup(function(event){
+
+		$(function() {
+		  	var availableTags = [];
+		  	var fComando = "getListaNome", 
+			url = "../controller/cliente_controller.php";
+			
+			$.post(url,{comando: fComando},function(data){
+				availableTags = data.split("][");
+				    $( "#tel" ).autocomplete({
+		      			source: availableTags
+		    		});
+			});
+		} );		
+
+
+	    if (event.keyCode === 10 || event.keyCode === 13) {
+	    	event.preventDefault();
+	    		
+				var fComando = "search",
+				fCampo = "telefone",
+				fTel = parseInt($("#tel").val()),
+				url = "../controller/cliente_controller.php";
+
+	    	if($("#tel").val() != "") {
+	    		$.post(url,{campo: fCampo, tel: fTel, comando: fComando},function(data){
+	 				//alert(data);
+	    			var valores = data.split("][");
+	    			$("#form_add")[0].reset();
+
+	    			$('#id').val(valores[0]);
+	    			$('#nome').val(valores[1]);
+					$('#tel').val(valores[2]);
+					$('#endereco').val(valores[3]);
+					$('#referencia').val(valores[4]);
+					$('#data').val(valores[5]);
+				});
+	    	}
+	    }	        
+	});
+
+/*	$("#nome").focusout(function() {
+		var e = jQuery.Event("keyup");
+		e.keyCode = $.ui.keyCode.ENTER;
+		$("#nome").trigger(e);
+  	});*/
+
+$( "#form_add" ).submit(function( event ) {
+	event.preventDefault();
+
+
+
+
+	///Pegar valores dos checkboxs
+	$(document).ready(function() {
+		var produtos = "";
+
+        $('#produtos input:checked').each(function() {
+
+            if (this.name != null) {
+            	var idProduto = this.name,
+            		quantProduto = $('#q' + this.name).val();
+
+            		produtos = produtos + idProduto + "-" + quantProduto + "][";
+
+            }
+        });
+
+	    var $form = $('#form_add'),
+		  	fIdCliente = $('#id').val(),
+		    fRecebido = $form.find( "input[name='recebido']" ).val(),
+		    fProdutos = produtos,		    
+		    fComando = $form.find( "input[name='comando']" ).val(),
+		    url = $form.attr( "action" );
+
+		$.post(url,{idCliente: fIdCliente, recebido: fRecebido, produtos: fProdutos ,comando: fComando},function(data){
+	 		//alert(data);
+	 		$form[0].reset();
+	 		$('#total').text("0.0");
+	 		$('#troco').text("0.0");
+			$.toast('Pedido adicionado!');
+			$("#tel").focus();
+	 	}); 
+	});
+
+
+});
+	
+
+
+</script>
+
+</body>
+</html>
