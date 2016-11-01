@@ -41,7 +41,7 @@ class EntregadorDao {
     }
 
 
-    public function getListaCpf(){ 
+    public function getListaId(){ 
 	    $sql = "SELECT * FROM entregador";
 	    $registro = "";
 		// Perform queries 
@@ -51,7 +51,7 @@ class EntregadorDao {
 		if (mysqli_num_rows($results) > 0) {
 		    // output data of each row
 			while($row = mysqli_fetch_assoc($results)) {
-				$registro = $registro . "<option value=".$row["cpf"]." name='entregador'>".$row["nome"]."</option>";
+				$registro = $registro . "<option value=".$row["id"]." name='entregador'>".$row["nome"]."</option>";
 		    }
 		} else {
 		    echo "0 results";
