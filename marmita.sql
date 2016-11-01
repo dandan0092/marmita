@@ -1,6 +1,6 @@
-create database marmita;
+create database id115061_marmita;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`terceirizada` (
+CREATE TABLE IF NOT EXISTS `id115061_marmita`.`terceirizada` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `endereco` VARCHAR(45) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`terceirizada` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
+CREATE TABLE IF NOT EXISTS `id115061_marmita`.`produto` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `descricao` VARCHAR(45) NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`produto` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`entregador` (
+CREATE TABLE IF NOT EXISTS `id115061_marmita`.`entregador` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(45) NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`entregador` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`cliente` (
+CREATE TABLE IF NOT EXISTS `id115061_marmita`.`cliente` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `telefone` VARCHAR(45) NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`cliente` (
   UNIQUE INDEX `id_UNIQUE` (`id` ASC))
 ENGINE = InnoDB;
 
-CREATE TABLE IF NOT EXISTS `mydb`.`pedido` (
+CREATE TABLE IF NOT EXISTS `id115061_marmita`.`pedido` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `id_cliente` INT UNSIGNED NOT NULL,
   `id_entregador` INT UNSIGNED NOT NULL,
@@ -65,14 +65,14 @@ CREATE TABLE IF NOT EXISTS `mydb`.`pedido` (
   INDEX `fk_pedido_entregador1_idx` (`id_entregador` ASC),
   CONSTRAINT `fk_pedido_cliente`
     FOREIGN KEY (`id_cliente`)
-    REFERENCES `mydb`.`cliente` (`id`)
+    REFERENCES `id115061_marmita`.`cliente` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_pedido_entregador1`
     FOREIGN KEY (`id_entregador`)
-    REFERENCES `mydb`.`entregador` (`id`)
+    REFERENCES `id115061_marmita`.`entregador` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-use marmita;
+use id115061_marmita;
