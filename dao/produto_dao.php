@@ -2,10 +2,10 @@
 class ProdutoDao {
 	public function getConexao() {
 		$host = "localhost";
-		$user = "root";
-		$pwd  = "root";
-		$bd   = "marmita";
-
+		$user = "id115061_root";
+		$pwd  = "root123";
+		$bd   = "id115061_marmita";
+		
 		// Criar connexao
 		$conn = mysqli_connect($host, $user, $pwd, $bd);
 
