@@ -170,9 +170,9 @@ function entregador_add() {
 	var url = "../controller/pedido_controller.php",
 		fComando = "setEntregador",
 		fIdPedido = $("#id_pedido").val(),
-		fCpfEntregador = $("#entregador option:selected").val();
+		fIdEntregador = $("#entregador option:selected").val();
 
-	$.post(url,{id: fIdPedido, cpf: fCpfEntregador, comando: fComando},function(data){
+	$.post(url,{id: fIdPedido, idEntregador: fIdEntregador, comando: fComando},function(data){
  	//alert(data);
  		var idPedido = $("#id_pedido").val();
  		if (data) { 
