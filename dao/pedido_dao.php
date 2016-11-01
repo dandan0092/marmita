@@ -42,8 +42,8 @@ class PedidoDao {
 		mysqli_close($conexao);
     }
 
-    public function setEntregador($id, $cpf, $status){
-		$sql = "UPDATE pedido SET id_entregador=$cpf, status=$status WHERE id=$id";
+    public function setEntregador($id, $idEntregador, $status){
+		$sql = "UPDATE pedido SET id_entregador=$idEntregador, status=$status WHERE id=$id";
 		// Perform queries 
 		
 		//$this->getConexao();
