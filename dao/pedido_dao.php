@@ -80,7 +80,7 @@ class PedidoDao {
 
 
     public function getListaPedido(){
-	    $sql = "SELECT * FROM pedido WHERE id_entregador = 0 AND status='Pendente' OR status='Em trânsito...'";
+	    $sql = "SELECT * FROM pedido WHERE status='Pendente' OR status='Em trânsito...'";
 	    $registro = "";
 	    
 
