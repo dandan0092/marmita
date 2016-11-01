@@ -1,6 +1,6 @@
 create database id115061_marmita;
 
-CREATE TABLE IF NOT EXISTS `id115061_marmita`.`terceirizada` (
+CREATE TABLE IF NOT EXISTS `id115061_marmita`.`tercerizada` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(45) NOT NULL,
   `endereco` VARCHAR(45) NOT NULL,
