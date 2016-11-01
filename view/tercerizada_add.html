@@ -16,7 +16,7 @@
 <title>Casa das Marmitas | ADS UNOPAR</title>
 
 </head>
-</script>
+
 <body>
 
 	<form id="form_add" action="../controller/tercerizada_controller.php" method="post">
@@ -50,7 +50,7 @@ $( "#form_add" ).submit(function( event ) {
     fComando = $form.find( "input[name='comando']" ).val(),
     url = $form.attr( "action" );
 	$.post(url,{nome: fNome, tel: fTelefone, email: fEmail, cnpj: fCnpj, endereco: fEndereco, comando: fComando},function(data){
- 	//alert(data);
+ 	alert(data);
  		$form[0].reset();
 		$.toast('Empresa adicionada!');
 		$("#nome").focus();
