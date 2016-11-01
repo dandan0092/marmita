@@ -44,7 +44,7 @@ if ($comando == "cancelPedido") {
 if ($comando == "setEntregador") {
 	# code...
 	$status = "Em trânsito...";
-	$rs = $dao->setEntregador("'". $id ."'", "'". $cpf ."'", "'". $status ."'");
+	$rs = $dao->setEntregador("'". $id ."'", "'". $idEntregador ."'", "'". $status ."'");
 	echo "1";
 }
 
@@ -58,8 +58,8 @@ if ($comando == "setEntregue") {
 
 if ($comando == "getListaEntregador") {
 	# code...
-	$rs = "<option value=00000000000 name='entregador'>Entregador</option>";
-	$rs = $rs . $daoEntreg->getListaCpf();
+	$rs = "<option value=0 name='entregador'>Entregador</option>";
+	$rs = $rs . $daoEntreg->getListaId();
 	echo $rs;
 }
 
