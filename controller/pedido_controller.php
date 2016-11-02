@@ -143,9 +143,9 @@ if ($comando == "relatorio") {
 			$nome_cliente = $cliente[1];
 			
 			$nome_entredagor = "";
-			if ($id_entregador != "0") {
+			if ($id_entregador != NULL) {
 				# code...
-				$rsEntregador = $daoEntreg->search("cpf", "'". $id_entregador ."'");
+				$rsEntregador = $daoEntreg->search("id", "'". $id_entregador ."'");
 				$entregador = explode("][", $rsEntregador);
 				$nome_entredagor = $entregador[1];
 				
